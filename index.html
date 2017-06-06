@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,p,ul{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			ul{
+				width: 200px;
+				height: 30px;
+				position: relative;
+				margin: 50px auto;
+			}
+			li{
+				width: 28px;
+				height: 28px;
+				margin-right: 10px;
+				border-radius: 50%;
+				border: 1px solid #ccc;
+				float: left;
+			}
+			p{
+				width: 60px;
+				height: 30px;
+				font: 14px/30px "宋体";
+				color: #fff;
+				text-align: center;
+				background: red;
+				position: absolute;
+				right: -80px;
+				top: 0;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>		
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<p>极差</p>
+			<p>一般</p>
+			<p>不错</p>
+			<p>推荐</p>
+			<p>力推</p>		
+		</ul>		
+		<script type="text/javascript">
+			var oLi=document.getElementsByTagName('li');
+			var oP=document.getElementsByTagName('p');
+			var len=oLi.length;
+			var n=0;
+			for(var i=0;i<len;i++){
+				oLi[i].index=i;
+				oLi[i].onOff=true;
+				oLi[i].onmouseover=function(){
+//				第二次移入大清洗
+					for(var i=0;i<len;i++){
+						oLi[i].style.background="";
+						oP[i].style.display="none";
+					};
+//				第一次移入					
+					for(var i=0;i<=this.index;i++){
+						oP[this.index].style.display="block";
+						if(this.index<2){
+							oLi[i].style.background="pink";						
+						}else{
+							oLi[i].style.background="red";	
+						};
+					};					
+				};
+				oLi[i].onclick=function(){
+//				第二次点击
+					for(var i=0;i<len;i++){
+						oLi[i].onOff=true;
+					};
+					n=this.index
+//				第一次点击
+					this.onOff=false;
+				}
+				
+				oLi[i].onmouseout=function(){
+					
+//				第一次移出	未点击
+					if(this.onOff){
+						for(var i=0;i<len;i++){
+							oLi[i].style.background="";
+							oP[i].style.display="none";
+//					第二次点击之后移出
+							if(!oLi[i].onOff){
+								for(var i=0;i<len;i++){
+									oLi[i].style.background="";
+									oP[i].style.display="none";
+								};
+								for(var i=0;i<=n;i++){
+									oP[i].style.display="block"
+									if(n<2){
+										oLi[i].style.background="pink";						
+									}else{
+										oLi[i].style.background="red";	
+									};
+								};		
+							}
+						};
+					}
+
+					
+				};
+			}
+		</script>		
+	</body>
+</html>
